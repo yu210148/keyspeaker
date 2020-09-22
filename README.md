@@ -14,3 +14,6 @@ and optionally any mbrola voices you'd like to use:
 E.g.,
 
 sudo apt install mbrola-en1
+
+It's loosley based on gespeaker (https://github.com/muflone/gespeaker) which AFAIK is no longer maintained. I haven't implemented all of the functions it has though.
+
