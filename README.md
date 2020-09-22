@@ -1,5 +1,5 @@
 # keyspeaker
-A Qt5 frontend for espeak-ng
+A Python 3, Qt5 frontend for espeak-ng
 
 Once the dependencies are installed it can be run by simply typing:
 
