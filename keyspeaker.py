@@ -161,6 +161,8 @@ def set_rate_file(rate):
 
 #Button Handlers
 def on_play_button_clicked(text, self):
+    # TODO STOP PLAYBACK IF PLAYING THEN START AGAIN WITH CONTENT IN THE TEXT BOX
+    
     # write the rate and voice to a conf file so that the user's selctions
     # persist across sessions
     rate = str(self.rateSlider.value())
@@ -386,4 +388,5 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    #TODO STOP PLAYBACK WHEN PROGRAM IS CLOSED
     sys.exit(app.exec_())
