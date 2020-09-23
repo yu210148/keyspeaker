@@ -241,9 +241,6 @@ def on_stop_button_clicked(self):
     # set value of fPaused to false
     global fPaused
     fPaused = False
-    
-    # re-enable play button
-    #self.playButton.setEnabled(True)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
