@@ -51,7 +51,10 @@ def get_list_of_mbrola_voices():
     # GET A LIST OF MBROLA VOICES IN THE SAME WAY AS THE ESPEAK ONES ABOVE
     
     path = '/usr/lib/x86_64-linux-gnu/espeak-ng-data/voices/mb'
-    mbVoices = os.listdir(path)
+    try:
+        mbVoices = os.listdir(path)
+    except:
+        mbVoices = [] #if no mbrola voices found return empty list
     return mbVoices
     
 voiceNames = get_list_of_espeak_voices()
