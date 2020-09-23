@@ -22,7 +22,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QKeySequence
-import subprocess, os, signal, re, pathlib, sys
+import subprocess, os, signal, re, pathlib, sys, atexit
 
 # set a default value for speakerProcess so the thing doesn't crash if pause is pressed before play
 speakerProcess = False
@@ -159,6 +159,12 @@ def set_rate_file(rate):
     file = open(pathlib.Path.home() / '.config' / 'keyspeaker' / 'rate.conf', 'w+')
     file.write(rate)
 
+def stop_talking():
+    try:
+        os.kill(speakerProcess.pid, signal.SIGKILL)
+    except:
+        pass
+    
 #Button Handlers
 def on_play_button_clicked(text, self):
     # TODO STOP PLAYBACK IF PLAYING THEN START AGAIN WITH CONTENT IN THE TEXT BOX
@@ -388,5 +394,6 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    #TODO STOP PLAYBACK WHEN PROGRAM IS CLOSED
+    # STOP PLAYBACK WHEN PROGRAM IS CLOSED
+    atexit.register(stop_talking)
     sys.exit(app.exec_())
