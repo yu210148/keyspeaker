@@ -214,9 +214,6 @@ def on_pause_button_clicked(self):
     
     else:
         # resume the speaking process
-        #TODO There's a bug where if play is pressed, then stop then play again and finally pause this 'resume' code is executed on the pause
-        # button click. Need to sort out why that is.
-        print('resuming')
         try:
             os.kill(speakerProcess.pid, signal.SIGCONT)
         except:
@@ -242,10 +239,11 @@ def on_stop_button_clicked(self):
     self.pauseButton.setIcon(icon)
     
     # set value of fPaused to false
+    global fPaused
     fPaused = False
     
     # re-enable play button
-    self.playButton.setEnabled(True)
+    #self.playButton.setEnabled(True)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
