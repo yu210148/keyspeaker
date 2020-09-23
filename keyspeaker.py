@@ -167,8 +167,6 @@ def stop_talking():
     
 #Button Handlers
 def on_play_button_clicked(text, self):
-    # TODO STOP PLAYBACK IF PLAYING THEN START AGAIN WITH CONTENT IN THE TEXT BOX
-    
     # write the rate and voice to a conf file so that the user's selctions
     # persist across sessions
     rate = str(self.rateSlider.value())
@@ -177,22 +175,25 @@ def on_play_button_clicked(text, self):
     voice = str(self.VoiceComboBox.currentText())
     set_voice_file(voice)
     
-    
     global speakerProcess
     
     fIsSpeaking = check_if_speaking()
     
-    # if currently speaking don't start another speaking instance or they'll overlap
-    if fIsSpeaking is False:
-        #rate = str(self.rateSlider.value())
-        #voice = str(self.VoiceComboBox.currentText())
-        if voice == 'Default':
+    # if currently speaking stop the current speaking and start with what's in the text box
+    if fIsSpeaking is True:
+        stop_talking()
+        # if the fIsSpeaking is true but playback is paused this will change the resume button back to pause 
+        self.pauseButton.setText("Pause")
+        icon = QtGui.QIcon.fromTheme("media-playback-pause")
+        self.pauseButton.setIcon(icon)
+        global fPaused
+        fPaused = False
+
+    if voice == 'Default':
             speakerProcess = subprocess.Popen(["espeak-ng", "-s", rate, text])
-        else:
-            speakerProcess = subprocess.Popen(["espeak-ng", "-s", rate, "-v", voice, text])
     else:
-        pass
-    
+            speakerProcess = subprocess.Popen(["espeak-ng", "-s", rate, "-v", voice, text])
+
 def on_pause_button_clicked(self):
     global fPaused
     
@@ -213,6 +214,9 @@ def on_pause_button_clicked(self):
     
     else:
         # resume the speaking process
+        #TODO There's a bug where if play is pressed, then stop then play again and finally pause this 'resume' code is executed on the pause
+        # button click. Need to sort out why that is.
+        print('resuming')
         try:
             os.kill(speakerProcess.pid, signal.SIGCONT)
         except:
