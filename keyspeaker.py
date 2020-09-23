@@ -248,8 +248,6 @@ def on_stop_button_clicked(self):
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        #MainWindow.resize(806, 684)
-        #MainWindow.resize(640, 480)
         MainWindow.resize(300, 300)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
